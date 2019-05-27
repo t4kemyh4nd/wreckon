@@ -16,7 +16,7 @@ case $method in
 "sdbf")
 touch $result_file
 echo "brute-forcing $domain subdomains now"
-python ~/Pentesting/knock/knockpy/knockpy.py -w ~/Pentesting/knock/knockpy/wordlist/test.txt -c $domain > /dev/null
+python ~/Pentesting/knock/knockpy/knockpy.py -w ~/Pentesting/knock/knockpy/wordlist/wordlist.txt -c $domain > /dev/null
 cat *.csv | cut -d "," -f 4
 rm *.csv
 ;;
@@ -27,7 +27,7 @@ aquatone-discover --domain $domain > /dev/null
 cat ~/aquatone/$domain/hosts.txt | cut -d "," -f 1
 ;;
 "dbf")
-python3 ~/Pentesting/dirsearch/dirsearch.py -b -u $domain -w ameya.txt -e * --plain-text-report=result.txt > /dev/null
+python3 ~/Pentesting/dirsearch/dirsearch.py -b -u $domain -e * --plain-text-report=result.txt > /dev/null
 cat result.txt
 rm result.txt
 ;;
