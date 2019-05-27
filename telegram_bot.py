@@ -25,7 +25,7 @@ def sdbf(bot, update, args):
     arg = args[0]
     bot.send_message(chat_id=update.message.chat_id, text="Subdomain Directory Bruteforce: " + arg)
     pipe = subprocess.Popen(
-        ['wreckon.sh', 'sdbf', arg], shell=True, stdout=subprocess.PIPE).stdout
+        ['./wreckon.sh sdbf ' + arg], shell=True, stdout=subprocess.PIPE).stdout
     output = pipe.read()
     bot.send_message(chat_id=update.message.chat_id, text=output)
     return ConversationHandler.END
@@ -34,7 +34,8 @@ def sdd(bot, update, args):
     arg = args[0]
     bot.send_message(chat_id=update.message.chat_id, text="Subdomain Directory Discovery: " + arg)
     pipe = subprocess.Popen(
-        ['wreckon.sh', 'sdd', arg], shell=True, stdout=subprocess.PIPE).stdout
+        ['./wreckon.sh sdd ' + arg], shell=True,
+        stdout=subprocess.PIPE).stdout
     output = pipe.read()
     bot.send_message(chat_id=update.message.chat_id, text=output)
     return ConversationHandler.END
@@ -43,7 +44,8 @@ def dbf(bot, update, args):
     arg = args[0]
     bot.send_message(chat_id=update.message.chat_id, text="Directory Bruteforce: " + arg)
     pipe = subprocess.Popen(
-        ['wreckon.sh', 'dbf', arg], shell=True, stdout=subprocess.PIPE).stdout
+        ['./wreckon.sh dbf ' + arg], shell=True,
+        stdout=subprocess.PIPE).stdout
     output = pipe.read()
     bot.send_message(chat_id=update.message.chat_id, text=output)
     return ConversationHandler.END
