@@ -26,6 +26,11 @@ echo "using aquatone-discover on $domain now"
 aquatone-discover --domain $domain
 cat ~/aquatone/$domain/hosts.txt | cut -d "," -f 1
 ;;
+"dbf")
+python3 ~/Pentesting/dirsearch/dirsearch.py -b -u $domain -e * --plain-text-report=result.txt
+cat result.txt
+rm result.txt
+;;
 *)
 echo "please enter either sdbf or sdd as argument"
 ;;
