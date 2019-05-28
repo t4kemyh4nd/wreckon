@@ -12,6 +12,13 @@ result_file="/tmp/result.txt"
 method=$1
 domain=$2
 
+dirsearch () {
+	python3 ~/Pentesting/dirsearch/dirsearch.py -b -u $1 -w test.txt -e * --plain-text-report=result.txt > /dev/null
+	cat result.txt
+	rm result.txt
+	exit 0
+}
+
 case $method in
 "sdbf")
 touch $result_file
@@ -27,9 +34,7 @@ aquatone-discover --domain $domain > /dev/null
 cat ~/aquatone/$domain/hosts.txt | cut -d "," -f 1
 ;;
 "dbf")
-python3 ~/Pentesting/dirsearch/dirsearch.py -b -u $domain -w test.txt -e * --plain-text-report=result.txt > /dev/null
-cat result.txt
-rm result.txt
+dirsearch $domain &
 ;;
 *)
 echo "please enter either sdbf or sdd as argument"
