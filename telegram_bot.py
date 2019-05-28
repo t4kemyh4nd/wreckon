@@ -64,7 +64,6 @@ def sdd(bot, update, args):
 
 def dbf(bot, update, args):
     arg = args[0]
-    print('running dirsearch on ' + arg)
     bot.send_message(chat_id=update.message.chat_id, text="Directory Bruteforce: " + arg)
     pipe = subprocess.Popen(
         ['./wreckon.sh dbf ' + arg], shell=True,
