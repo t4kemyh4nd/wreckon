@@ -33,12 +33,12 @@ aquatone_scan () {
 }
 
 nikto_scan () {
-	nikto -host $1 -output result.txt > /dev/null
+	nikto -host $1 > result.txt
 	cat result.txt
 }
 
 niktossl_scan () {
-	nikto -host $1 -ssl -output result.txt > /dev/null
+	nikto -host $1 -ssl > result.txt
 	cat result.txt
 }
 
