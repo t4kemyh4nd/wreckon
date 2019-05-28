@@ -69,11 +69,10 @@ def dbf(bot, update, args):
         ['./wreckon.sh dbf ' + arg], shell=True,
         stdout=subprocess.PIPE).stdout
     output = pipe.read()
-    print(output)
+    bot.send_message(chat_id=update.message.chat_id, text=output)
     msg.attach(MIMEText(output, 'plain'))
     text = msg.as_string()
     server.sendmail(fromaddr, toaddr, text)
-    bot.send_message(chat_id=update.message.chat_id, text=output)
     return ConversationHandler.END
 
 def main():
