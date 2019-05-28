@@ -13,7 +13,7 @@ method=$1
 domain=$2
 
 dirsearch_scan () {
-	python3 ~/Pentesting/dirsearch/dirsearch.py -b -u $1 -w test.txt -e * --plain-text-report=result.txt > /dev/null
+	python3 ~/Pentesting/dirsearch/dirsearch.py -b -u $1 -e * --plain-text-report=result.txt > /dev/null
 	cat result.txt
 	rm result.txt
 	exit 0
