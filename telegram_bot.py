@@ -3,6 +3,14 @@ from telegram import Bot
 from telegram import (ReplyKeyboardMarkup, ReplyKeyboardRemove)
 from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters, RegexHandler,
               ConversationHandler)
+import smtplib
+
+#email auth start
+server = smtplib.SMTP('smtp.gmail.com', 587)
+server.starttls()
+
+server.login('appsecure.bot@gmail.com', 'appsecure123')
+#email auth end
 
 TOKEN = "893808873:AAG9l5dF-9utv9KsDWZFadYqRfk4O0kRGnc"
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
@@ -34,7 +42,7 @@ def sdd(bot, update, args):
     arg = args[0]
     bot.send_message(chat_id=update.message.chat_id, text="Subdomain Directory Discovery: " + arg)
     pipe = subprocess.Popen(
-        ['./wreckon.sh sdd ' + arg], shell=True,
+        ['./wreckon.sh sdd ' + arg + ' &'], shell=True,
         stdout=subprocess.PIPE).stdout
     output = pipe.read()
     bot.send_message(chat_id=update.message.chat_id, text=output)
@@ -48,6 +56,7 @@ def dbf(bot, update, args):
         stdout=subprocess.PIPE).stdout
     output = pipe.read()
     bot.send_message(chat_id=update.message.chat_id, text=output)
+    server.sendmail('appsecure.bot@gmail.com', 'ameya@appsecure.in', output)
     return ConversationHandler.END
 
 def main():
