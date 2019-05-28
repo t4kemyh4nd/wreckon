@@ -3,7 +3,7 @@
 
 if [ $# -eq 0 ] || [ $# -eq 1 ];
  then
-    echo "Usage: ./wreckon.sh sdbf/sdd/dbf domain"
+    echo "Usage: ./wreckon.sh sdbf/sdd/dbf/nikto/niktossl domain"
     exit 1
 fi
 
@@ -19,22 +19,28 @@ dirsearch () {
 	exit 0
 }
 
+knock () {
+	echo "brute-forcing $1 subdomains now"
+	python ~/Pentesting/knock/knockpy/knockpy.py -w ~/Pentesting/knock/knockpy/wordlist/wordlist.txt -c $1 > /dev/null
+	cat *.csv | cut -d "," -f 4
+	rm *.csv
+}
+
+aquatone() {
+	echo "using aquatone-discover on $1 now"
+	aquatone-discover --domain $1 > /dev/null
+	cat ~/aquatone/$1/hosts.txt | cut -d "," -f 1
+}
+
 case $method in
 "sdbf")
-touch $result_file
-echo "brute-forcing $domain subdomains now"
-python ~/Pentesting/knock/knockpy/knockpy.py -w ~/Pentesting/knock/knockpy/wordlist/wordlist.txt -c $domain > /dev/null
-cat *.csv | cut -d "," -f 4
-rm *.csv
+knock $domain
 ;;
 "sdd")
-touch $result_file
-echo "using aquatone-discover on $domain now"
-aquatone-discover --domain $domain > /dev/null
-cat ~/aquatone/$domain/hosts.txt | cut -d "," -f 1
+aquatone $domain
 ;;
 "dbf")
-dirsearch $domain &
+dirsearch $domain
 ;;
 *)
 echo "please enter either sdbf or sdd as argument"
