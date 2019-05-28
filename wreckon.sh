@@ -27,7 +27,7 @@ aquatone-discover --domain $domain > /dev/null
 cat ~/aquatone/$domain/hosts.txt | cut -d "," -f 1
 ;;
 "dbf")
-python3 ~/Pentesting/dirsearch/dirsearch.py -b -u $domain -e * --plain-text-report=result.txt > /dev/null
+python3 ~/Pentesting/dirsearch/dirsearch.py -b -u $domain -w test.txt -e * --plain-text-report=result.txt > /dev/null
 cat result.txt
 rm result.txt
 ;;
