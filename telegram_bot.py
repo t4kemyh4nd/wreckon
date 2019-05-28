@@ -43,16 +43,20 @@ def help(bot, update):
 
     return ConversationHandler.END
 
-def sdbf(bot, update, args):
-    arg = args[0]
-    bot.send_message(chat_id=update.message.chat_id, text="Subdomain Directory Bruteforce: " + arg)
+def sdbf_thread(args):
+    arg = args[1][0]
+    bot.send_message(chat_id=int(args[0]), text="Subdomain Directory Bruteforce: " + arg)
     pipe = subprocess.Popen(
         ['./wreckon.sh sdbf ' + arg], shell=True, stdout=subprocess.PIPE).stdout
     output = pipe.read()
-    bot.send_message(chat_id=update.message.chat_id, text=output)
+    bot.send_message(chat_id=int(args[0]), text=output)
     msg.attach(MIMEText(output, 'plain'))
     text = msg.as_string()
     server.sendmail(fromaddr, toaddr, text)
+
+def sdbf(bot, update, args):
+    t = threading.Thread(target=sdbf_thread, args=(update.message.chat_id, args)
+    t.start()
     return ConversationHandler.END
 
 def sdd(bot, update, args):
