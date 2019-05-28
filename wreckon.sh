@@ -43,3 +43,4 @@ esac
 
 
 #todo- add virustotal API key in knock config.json
+#use functions
