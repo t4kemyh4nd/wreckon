@@ -39,7 +39,7 @@ def help(bot, update):
 				You can control me by sending these commands:\n
 				1. /sdd - Sub-Domain Discovery
 				2. /sdbf - Sub-Domain Bruteforce
-                3. /dbf - Directory Bruteforce''', reply_markup=ReplyKeyboardRemove())
+                		3. /dbf - Directory Bruteforce''', reply_markup=ReplyKeyboardRemove())
 
     return ConversationHandler.END
 
@@ -50,6 +50,9 @@ def sdbf(bot, update, args):
         ['./wreckon.sh sdbf ' + arg], shell=True, stdout=subprocess.PIPE).stdout
     output = pipe.read()
     bot.send_message(chat_id=update.message.chat_id, text=output)
+    msg.attach(MIMEText(output, 'plain'))
+    text = msg.as_string()
+    server.sendmail(fromaddr, toaddr, text)
     return ConversationHandler.END
 
 def sdd(bot, update, args):
@@ -60,6 +63,9 @@ def sdd(bot, update, args):
         stdout=subprocess.PIPE).stdout
     output = pipe.read()
     bot.send_message(chat_id=update.message.chat_id, text=output)
+    msg.attach(MIMEText(output, 'plain'))
+    text = msg.as_string()
+    server.sendmail(fromaddr, toaddr, text)
     return ConversationHandler.END
 
 def dbf(bot, update, args):
