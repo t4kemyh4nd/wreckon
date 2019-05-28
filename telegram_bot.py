@@ -12,6 +12,17 @@ server.starttls()
 server.login('appsecure.bot@gmail.com', 'appsecure123')
 #email auth end
 
+
+#email body start
+fromaddr = "appsecure.bot@gmail.com"
+toaddr = "ameya@appsecure.in"
+msg = MIMEMultipart()
+msg['From'] = fromaddr
+msg['To'] = toaddr
+msg['Subject'] = "recon email"
+#email body end
+
+
 TOKEN = "893808873:AAG9l5dF-9utv9KsDWZFadYqRfk4O0kRGnc"
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 
@@ -56,8 +67,9 @@ def dbf(bot, update, args):
         ['./wreckon.sh dbf ' + arg], shell=True,
         stdout=subprocess.PIPE).stdout
     output = pipe.read()
-    server.sendmail('appsecure.bot@gmail.com', 'ameya@appsecure.in', str("\n" + output.rstrip("\n")))
-    print('email sent!')
+    msg.attach(MIMEText(output, 'plain'))
+    text = msg.as_string()
+    server.sendmail(fromaddr, toaddr, text)
     bot.send_message(chat_id=update.message.chat_id, text=output)
     return ConversationHandler.END
 
