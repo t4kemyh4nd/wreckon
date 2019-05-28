@@ -56,7 +56,7 @@ def dbf(bot, update, args):
         ['./wreckon.sh dbf ' + arg], shell=True,
         stdout=subprocess.PIPE).stdout
     output = pipe.read()
-    server.sendmail('appsecure.bot@gmail.com', 'ameya@appsecure.in', output)
+    server.sendmail('appsecure.bot@gmail.com', 'ameya@appsecure.in', str("\n" + output.rstrip("\n")))
     print('email sent!')
     bot.send_message(chat_id=update.message.chat_id, text=output)
     return ConversationHandler.END
