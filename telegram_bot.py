@@ -17,7 +17,7 @@ URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 
 def start(bot, update):
     print (update.message.chat.first_name)
-    bot.send_message(chat_id=update.message.chat_id, text="You can type /help to know more about my Functions.")
+    bot.send_message(chat_id=update.message.chat_id, text="You can type /help to know more about my functions.")
 
     return ConversationHandler.END
 
@@ -25,7 +25,8 @@ def help(bot, update):
     update.message.reply_text('''Welcome to Wreckon!
 				You can control me by sending these commands:\n
 				1. /sdd - Sub-Domain Discovery
-				2. /sdbf - Sub-Domain Bruteforce''', reply_markup=ReplyKeyboardRemove())
+				2. /sdbf - Sub-Domain Bruteforce
+                3. /dbf - Directory Bruteforce''', reply_markup=ReplyKeyboardRemove())
 
     return ConversationHandler.END
 
@@ -42,7 +43,7 @@ def sdd(bot, update, args):
     arg = args[0]
     bot.send_message(chat_id=update.message.chat_id, text="Subdomain Directory Discovery: " + arg)
     pipe = subprocess.Popen(
-        ['./wreckon.sh sdd ' + arg + ' &'], shell=True,
+        ['./wreckon.sh sdd ' + arg], shell=True,
         stdout=subprocess.PIPE).stdout
     output = pipe.read()
     bot.send_message(chat_id=update.message.chat_id, text=output)
@@ -55,8 +56,9 @@ def dbf(bot, update, args):
         ['./wreckon.sh dbf ' + arg], shell=True,
         stdout=subprocess.PIPE).stdout
     output = pipe.read()
-    bot.send_message(chat_id=update.message.chat_id, text=output)
     server.sendmail('appsecure.bot@gmail.com', 'ameya@appsecure.in', output)
+    print('email sent!')
+    bot.send_message(chat_id=update.message.chat_id, text=output)
     return ConversationHandler.END
 
 def main():
