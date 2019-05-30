@@ -31,7 +31,24 @@ URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 
 def start(bot, update):
     print (update.message.chat.first_name)
-    bot.send_message(chat_id=update.message.chat_id, text="You can type /help to know more about my functions.")
+    intro_text = """
+ __      __                         __                   
+/  \    /  \_______   ____   ____  |  | __ ____    ____  
+\   \/\/   /\_  __ \_/ __ \_/ ___\ |  |/ //  _ \  /    \ 
+ \        /  |  | \/\  ___/\  \___ |    <(  <_> )|   |  \
+  \__/\  /   |__|    \___  >\___  >|__|_ \\____/ |___|  /
+       \/                \/     \/      \/            \/ 
+ Reconnaissance bot by @YashitM and @takemyhand
+ 
+ Commands:
+    1) /sdd - Sub Domain Discovery
+    2) /sdbf - Sub Domain Bruteforce
+    3) /dbf - Directory Bruteforce
+    4) /nikto - HTTP Nikto Scan
+    5) /niktossl - HTTPS Nikto Scan
+    
+    """
+    bot.send_message(chat_id=update.message.chat_id, text=intro_text)
 
     return ConversationHandler.END
 
