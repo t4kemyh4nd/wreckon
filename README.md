@@ -10,4 +10,4 @@ This bot currently supports:
 * Directory Enumeration.
 
 # Donate
-* [PayPal](https://www.paypal.me/amaheshwary)
+* [PayPal](https://www.paypal.me/nah-not-really-thanks-for-the-gesture-tho)
