@@ -65,7 +65,13 @@ def help(bot, update):
 
     return ConversationHandler.END
 
-
+def send_msg(id, message, bot):
+    chunks, chunk_size = len(4096), len(4096)/4
+    split_messages = [ x[i:i+chunk_size] for i in range(0, chunks, chunk_size) ]
+    
+    for msg in split_messages:
+        bot.send_message(chat_id=id, text=msg)
+  
 def sdbf(bot, update, args):
     t = threading.Thread(target=sdbf_thread, args=(update.message.chat_id, args, bot))
     t.start()
@@ -77,7 +83,7 @@ def sdbf_thread(id, args, bot):
     pipe = subprocess.Popen(
         ['./wreckon.sh sdbf ' + arg], shell=True, stdout=subprocess.PIPE).stdout
     output = pipe.read()
-    bot.send_message(chat_id=id, text=output)
+    send_msg(id, output, bot)
     msg.attach(MIMEText(output, 'plain'))
     text = msg.as_string()
     server.sendmail(fromaddr, toaddr, text)
@@ -94,7 +100,7 @@ def sdd_thread(id, args, bot):
         ['./wreckon.sh sdd ' + arg], shell=True,
         stdout=subprocess.PIPE).stdout
     output = pipe.read()
-    bot.send_message(chat_id=id, text=output)
+    send_msg(id, output, bot)
     msg.attach(MIMEText(output, 'plain'))
     text = msg.as_string()
     server.sendmail(fromaddr, toaddr, text)
@@ -112,7 +118,7 @@ def dbf_thread(id, args, bot):
         ['./wreckon.sh dbf ' + arg], shell=True,
         stdout=subprocess.PIPE).stdout
     output = pipe.read()
-    bot.send_message(chat_id=id, text=output)
+    send_msg(id, output, bot)
     msg.attach(MIMEText(output, 'plain'))
     text = msg.as_string()
     server.sendmail(fromaddr, toaddr, text)
@@ -130,7 +136,7 @@ def nikto_thread(id, args, bot):
         ['./wreckon.sh nikto ' + arg], shell=True,
         stdout=subprocess.PIPE).stdout
     output = pipe.read()
-    bot.send_message(chat_id=id, text=output)
+    send_msg(id, output, bot)
     msg.attach(MIMEText(output, 'plain'))
     text = msg.as_string()
     server.sendmail(fromaddr, toaddr, text)
@@ -148,7 +154,7 @@ def niktossl_thread(id, args, bot):
         ['./wreckon.sh niktossl ' + arg], shell=True,
         stdout=subprocess.PIPE).stdout
     output = pipe.read()
-    bot.send_message(chat_id=id, text=output)
+    send_msg(id, output, bot)
     msg.attach(MIMEText(output, 'plain'))
     text = msg.as_string()
     server.sendmail(fromaddr, toaddr, text)
