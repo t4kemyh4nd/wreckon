@@ -14,7 +14,7 @@ domain=$2
 
 dirsearch_scan () {
 	x=`date +%s`
-	python3 ~/Pentesting/dirsearch/dirsearch.py -b -u $1 -w test.txt -e * --plain-text-report=$x.txt > /dev/null
+	python3 ~/Pentesting/dirsearch/dirsearch.py -b -u $1 -e * --plain-text-report=$x.txt > /dev/null
 	cat $x.txt
 	rm $x.txt
 	exit 0
