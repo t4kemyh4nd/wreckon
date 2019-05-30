@@ -13,9 +13,10 @@ method=$1
 domain=$2
 
 dirsearch_scan () {
-	python3 ~/Pentesting/dirsearch/dirsearch.py -b -u $1 -e * --plain-text-report=result.txt > /dev/null
-	cat result.txt
-	rm result.txt
+	x=`date +%s`
+	python3 ~/Pentesting/dirsearch/dirsearch.py -b -u $1 -w test.txt -e * --plain-text-report=$x.txt > /dev/null
+	cat $x.txt
+	rm $x.txt
 	exit 0
 }
 
@@ -33,13 +34,17 @@ aquatone_scan () {
 }
 
 nikto_scan () {
-	nikto -host $1 > result.txt
-	cat result.txt
+	x=`date +%s`
+	nikto -host $1 > $x.txt
+	cat $x.txt
+	rm $x.txt
 }
 
 niktossl_scan () {
-	nikto -host $1 -ssl > result.txt
-	cat result.txt
+	x=`date +%s`
+	nikto -host $1 -ssl > $x.txt
+	cat $x.txt
+	rm $x.txt
 }
 
 case $method in
