@@ -27,10 +27,12 @@ knock_scan () {
 	rm *.csv
 }
 
-aquatone_scan () {
-	echo "using aquatone-discover on $1 now"
-	aquatone-discover --domain $1 > /dev/null
-	cat ~/aquatone/$1/hosts.txt | cut -d "," -f 1
+sublister_scan () {
+	x=`date +%s`
+	echo "using sublister on $1 now"
+	python ~/Pentesting/Sublist3r/sublist3r.py -d $1 -o $x.txt > /dev/null
+	cat $x.txt
+	rm $x.txt
 }
 
 nikto_scan () {
@@ -52,7 +54,7 @@ case $method in
 knock_scan $domain
 ;;
 "sdd")
-aquatone_scan $domain
+sublister_scan $domain
 ;;
 "dbf")
 dirsearch_scan $domain
