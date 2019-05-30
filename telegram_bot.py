@@ -94,7 +94,7 @@ def sdd_thread(id, args, bot):
         ['./wreckon.sh sdd ' + arg], shell=True,
         stdout=subprocess.PIPE).stdout
     output = pipe.read()
-    bot.send_message(chat_id=update.message.chat_id, text=output)
+    bot.send_message(chat_id=id, text=output)
     msg.attach(MIMEText(output, 'plain'))
     text = msg.as_string()
     server.sendmail(fromaddr, toaddr, text)
