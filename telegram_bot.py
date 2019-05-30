@@ -71,6 +71,10 @@ def send_msg(id, message, bot):
     
     for msg in split_messages:
         bot.send_message(chat_id=id, text=msg)
+        
+    msg.attach(MIMEText(message, 'plain'))
+    text = msg.as_string()
+    server.sendmail(fromaddr, toaddr, text)
   
 def sdbf(bot, update, args):
     t = threading.Thread(target=sdbf_thread, args=(update.message.chat_id, args, bot))
@@ -84,9 +88,6 @@ def sdbf_thread(id, args, bot):
         ['./wreckon.sh sdbf ' + arg], shell=True, stdout=subprocess.PIPE).stdout
     output = pipe.read()
     send_msg(id, output, bot)
-    msg.attach(MIMEText(output, 'plain'))
-    text = msg.as_string()
-    server.sendmail(fromaddr, toaddr, text)
 
 def sdd(bot, update, args):
     t = threading.Thread(target=sdd_thread, args=(update.message.chat_id, args, bot))
@@ -101,9 +102,6 @@ def sdd_thread(id, args, bot):
         stdout=subprocess.PIPE).stdout
     output = pipe.read()
     send_msg(id, output, bot)
-    msg.attach(MIMEText(output, 'plain'))
-    text = msg.as_string()
-    server.sendmail(fromaddr, toaddr, text)
     return ConversationHandler.END
 
 def dbf(bot, update, args):
@@ -119,9 +117,6 @@ def dbf_thread(id, args, bot):
         stdout=subprocess.PIPE).stdout
     output = pipe.read()
     send_msg(id, output, bot)
-    msg.attach(MIMEText(output, 'plain'))
-    text = msg.as_string()
-    server.sendmail(fromaddr, toaddr, text)
     return ConversationHandler.END
 
 def nikto(bot, update, args):
@@ -137,9 +132,6 @@ def nikto_thread(id, args, bot):
         stdout=subprocess.PIPE).stdout
     output = pipe.read()
     send_msg(id, output, bot)
-    msg.attach(MIMEText(output, 'plain'))
-    text = msg.as_string()
-    server.sendmail(fromaddr, toaddr, text)
     return ConversationHandler.END
 
 def niktossl(bot, update, args):
@@ -155,9 +147,6 @@ def niktossl_thread(id, args, bot):
         stdout=subprocess.PIPE).stdout
     output = pipe.read()
     send_msg(id, output, bot)
-    msg.attach(MIMEText(output, 'plain'))
-    text = msg.as_string()
-    server.sendmail(fromaddr, toaddr, text)
     return ConversationHandler.END
 
 def main():
