@@ -4,4 +4,10 @@ Built by [YashitM](https://www.twitter.com/YashitM) and [takemyhand](https://www
 
 
 # Features
-This bot currently supports SubDomain Enumeration, Nikto HTTP(s) Scans and Directory Enumeration.
+This bot currently supports:
+* SubDomain Enumeration
+* Nikto HTTP(s) Scans
+* Directory Enumeration.
+
+# Donate
+* [PayPal](https://www.paypal.me/amaheshwary)
